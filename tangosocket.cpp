@@ -10,11 +10,7 @@ TangoSocket::TangoSocket(std::string socket)
         checkSocketState();
 
     } catch (Tango::DevFailed &e) {
-//        DEBUG_STREAM << "Can't connect to socket " << socket << endl;
         Tango::Except::print_exception(e);
-
-//        set_state(Tango::FAULT);
-//        set_status("Can't connect to socket " + socket);
     }
 }
 
@@ -33,23 +29,15 @@ bool TangoSocket::checkSocketState()
         outputCom = socketProxy->command_inout("State");
         outputCom >> stateSocket;
         if (stateSocket == Tango::ON) {
-//            DEBUG_STREAM << " Socket " << socket << " is ON" << endl;
             isSocketOn = true;
-//            set_state(Tango::ON);
-//            set_status("Device is ON");
         }
         else if (stateSocket == Tango::OFF || stateSocket == Tango::FAULT)
         {
-//            DEBUG_STREAM << " Socket " << socket << " is OFF" << endl;
             isSocketOn = false;
-//            set_state(Tango::OFF);
-//            set_status("Device is OFF or Socket is FAULT");
         }
         return isSocketOn;
     } catch (Tango::DevFailed &e) {
         Tango::Except::print_exception(e);
-//        set_state(Tango::FAULT);
-//        set_status("Can't connect to socket " + socket);
         isSocketOn = false;
         return isSocketOn;
     }
