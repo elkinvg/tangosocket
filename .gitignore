@@ -1,0 +1,17 @@
+.git/*
+obj/*
+*~
+.project/*
+.settings/*
+.cproject
+.project
+*.xmi
+*-back
+*.bck
+*.pro
+*.user
+*.tmp
+Makefile
+bin/*
+lib/*
+vc10_proj/*
