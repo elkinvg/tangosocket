@@ -9,7 +9,7 @@ public:
     TangoSocket(std::string socket);
     ~TangoSocket();
     bool checkSocketState();
-    std::string toSocketWriteAndRead(std::string command); // send command to socket
+    std::string toSocketWriteAndRead(std::string command, bool isBinary = true); // send command to socket
 
 private:
     Tango::DeviceProxy *socketProxy;

@@ -43,14 +43,15 @@ bool TangoSocket::checkSocketState()
     }
 }
 
-std::string TangoSocket::toSocketWriteAndRead(std::string command)
+std::string TangoSocket::toSocketWriteAndRead(std::string command, bool isBinary)
 {
     Tango::DeviceData input, output;
     std::string reply;
 
     try {
         input << command;
-        output = socketProxy->command_inout("WriteAndRead",input);
+        if (isBinary) output = socketProxy->command_inout("WriteAndReadBinary",input);
+        else output = socketProxy->command_inout("WriteAndRead",input);
 
         output >> reply;
     } catch (Tango::DevFailed &e) {
