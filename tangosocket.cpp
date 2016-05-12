@@ -94,3 +94,46 @@ std::string TangoSocket::toSocketWriteAndReadBinary(std::string command)
     }
     return reply;
 }
+
+void TangoSocket::toSocketWrite(std::string command)
+{
+    Tango::DeviceData input;
+
+    try {
+        input << command;
+
+        socketProxy->command_inout("Write",input);
+
+    } catch (Tango::DevFailed &e) {
+        Tango::Except::print_exception(e);
+    }
+}
+
+std::string TangoSocket::fromSockedReadBinary()
+{
+    Tango::DeviceData outNum;
+    Tango::DeviceData output;
+    const Tango::DevVarCharArray* out;
+    Tango::DevLong outSize;
+    std::string reply = "";
+    try {
+        outNum = socketProxy->command_inout("AvalaibleBytes");
+        outNum >> outSize;
+
+        if (outSize > 0)
+        {
+            output = socketProxy->command_inout("ReadBinary");
+            outNum >> out;
+            int size = out->length();
+
+            for (int i = 0; i < size; i++)
+            {
+                 reply.push_back((*out)[i]);
+            }
+        }
+    }   catch (Tango::DevFailed &e) {
+        Tango::Except::print_exception(e);
+        reply = "?";
+    }
+    return reply;
+}

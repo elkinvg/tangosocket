@@ -11,6 +11,8 @@ public:
     bool checkSocketState();
     std::string toSocketWriteAndRead(std::string command); // send command to socket
     std::string toSocketWriteAndReadBinary(std::string command);
+    void toSocketWrite(std::string command);
+    std::string fromSockedReadBinary();
 
 private:
     Tango::DeviceProxy *socketProxy;
