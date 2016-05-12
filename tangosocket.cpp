@@ -123,7 +123,7 @@ std::string TangoSocket::fromSockedReadBinary()
         if (outSize > 0)
         {
             output = socketProxy->command_inout("ReadBinary");
-            outNum >> out;
+            output >> out;
             int size = out->length();
 
             for (int i = 0; i < size; i++)
