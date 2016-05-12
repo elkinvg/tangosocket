@@ -13,6 +13,7 @@ public:
     std::string toSocketWriteAndReadBinary(std::string command);
     void toSocketWrite(std::string command);
     std::string fromSockedReadBinary();
+	void reconnect();
 
 private:
     Tango::DeviceProxy *socketProxy;

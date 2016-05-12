@@ -137,3 +137,12 @@ std::string TangoSocket::fromSockedReadBinary()
     }
     return reply;
 }
+
+void TangoSocket::reconnect()
+{
+    try {
+		socketProxy->command_inout("Reconnect");
+	} catch (Tango::DevFailed &e) {
+        Tango::Except::print_exception(e);
+    }
+}
